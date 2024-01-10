@@ -1,9 +1,10 @@
+#[derive(Debug)]
 pub struct Stack {
     pub stack: Vec<usize>,
     pub max_depth: usize,
 }
 
-
+#[derive(Debug)]
 pub enum StackError {
     InvalidItem(usize),
     StackOverflow,
