@@ -9,6 +9,7 @@ pub enum StackError {
     InvalidItem(usize),
     StackOverflow,
     StackUnderflow,
+    InvalidIndex
 }
 
 impl Stack {
@@ -37,5 +38,28 @@ impl Stack {
             Some(item) => Ok(item),
             None => Err(StackError::StackUnderflow),
         }
+    }
+
+    pub fn peek(&mut self, index: usize) -> Result<usize, StackError> {
+        if self.stack.len() <= index {
+            return Err(StackError::StackUnderflow);
+        }
+        Ok(self.stack[self.stack.len() - (index + 1)])
+    }
+
+    pub fn swap(&mut self, index: usize) -> Result<(), StackError> {
+        if index == 0 {
+            return Err(StackError::InvalidIndex);
+        }
+
+        let stack_len = self.stack.len();
+
+        if stack_len <= index {
+            return Err(StackError::StackUnderflow);
+        }
+
+        self.stack.swap(stack_len - 1, stack_len - index - 1);
+
+        Ok(())
     }
 }
